@@ -20,6 +20,11 @@ class MyApp extends StatelessWidget {
           '/': (BuildContext context) => const HomePage(),
           'alert': (BuildContext context) => const AlertPage(),
           'avatar': (BuildContext context) => const AvatarPage(),
+        },
+        onGenerateRoute: (RouteSettings settings) {
+          print('$settings.name');
+          return MaterialPageRoute(
+              builder: (BuildContext context) => const AlertPage());
         });
   }
 }
