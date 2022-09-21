@@ -27,7 +27,8 @@ class _AnimateContainerPageState extends State<AnimateContainerPage> {
         width: _width,
         height: _heigth,
         decoration: BoxDecoration(borderRadius: _borderRadius, color: _color),
-        duration: Duration(milliseconds: 500),
+        duration: Duration(seconds: 1),
+        curve: Curves.fastOutSlowIn,
       )),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.play_arrow),
