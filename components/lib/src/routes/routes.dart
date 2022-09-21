@@ -10,6 +10,6 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     '/': (BuildContext context) => const HomePage(),
     'alert': (BuildContext context) => const AlertPage(),
     'avatar': (BuildContext context) => const AvatarPage(),
-    'cards': (BuildContext context) => const CardPage(),
+    'card': (BuildContext context) => const CardPage(),
   };
 }
