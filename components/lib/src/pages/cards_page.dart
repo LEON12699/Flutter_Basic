@@ -56,7 +56,7 @@ class CardPage extends StatelessWidget {
           height: 300.00,
           fit: BoxFit.cover,
           image: NetworkImage(
-              'https://www.elsalvador.com/wp-content/uploads/2019/10/20191010_1.jpg')),
+              'https://images.pexels.com/photos/6777376/pexels-photo-6777376.jpeg')),
       //Image(
       //    image: NetworkImage(
       //        'https://www.elsalvador.com/wp-content/uploads/2019/10/20191010_1.jpg')),
