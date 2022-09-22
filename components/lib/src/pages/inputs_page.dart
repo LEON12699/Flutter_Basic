@@ -11,6 +11,9 @@ class _InputPageState extends State<InputPage> {
   String _nombre = '';
   String _email = '';
   String _passsword = '';
+  String _fecha = '';
+
+  TextEditingController _inputFieldDate = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +29,8 @@ class _InputPageState extends State<InputPage> {
             _crearEmail(),
             const Divider(),
             _crearPassword(),
+            const Divider(),
+            _crearFechas(context),
             const Divider(),
             _crearPersona(),
           ],
@@ -90,5 +95,39 @@ class _InputPageState extends State<InputPage> {
               _passsword = valor;
               print('nombre: $_passsword');
             }));
+  }
+
+  Widget _crearFechas(context) {
+    return TextField(
+        controller: _inputFieldDate,
+        enableInteractiveSelection: false,
+        decoration: InputDecoration(
+            border:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
+            hintText: 'Fecha de nacimiento',
+            labelText: 'Fecha de nacimiento',
+            suffixIcon: const Icon(Icons.perm_contact_calendar),
+            icon: const Icon(Icons.calendar_today)),
+        onTap: () {
+          FocusScope.of(context).requestFocus(new FocusNode());
+          _selectDate(context);
+        });
+  }
+
+  void _selectDate(BuildContext context) async {
+    DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: new DateTime.now(),
+        firstDate: new DateTime(2018),
+        lastDate: new DateTime(2025),
+        locale: const Locale('es', 'ES'));
+
+    if (picked != null) {
+      setState(() {
+        _fecha = picked.toString();
+        _inputFieldDate.text = _fecha;
+        print(picked);
+      });
+    }
   }
 }
