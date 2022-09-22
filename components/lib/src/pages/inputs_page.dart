@@ -50,7 +50,7 @@ class _InputPageState extends State<InputPage> {
 
   Widget _crearPersona() {
     return ListTile(
-      title: Text('nombre es $_nombre'),
-    )
+      title: Text('nombre es $_nombre')
+    );
   }
 }
