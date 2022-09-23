@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class ListPage extends StatefulWidget {
@@ -12,6 +14,7 @@ class _ListPageState extends State<ListPage> {
 
   List<int> _numberList = [];
   int _ultimoItem = 0;
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -22,8 +25,16 @@ class _ListPageState extends State<ListPage> {
 
     if (_scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent - 10.0) {
-      _addImages(10);
+      //_addImages(10);
+      _fetchData();
     }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _scrollController.dispose();
   }
 
   @override
@@ -32,21 +43,35 @@ class _ListPageState extends State<ListPage> {
       appBar: AppBar(
         title: const Text('Listas'),
       ),
-      body: _crearLista(),
+      body: Stack(children: [createList(), createLoading()]),
     );
   }
 
-  Widget _crearLista() {
-    return ListView.builder(
-      controller: _scrollController,
-      itemCount: _numberList.length,
-      itemBuilder: (BuildContext context, int index) {
-        return FadeInImage(
-            placeholder: AssetImage('assets/jar-loading.gif'),
-            image: NetworkImage(
-                'https://picsum.photos/500/300/?image=${_numberList[index]}'));
-      },
+  Widget createList() {
+    return RefreshIndicator(
+      onRefresh: _getPage1,
+      child: ListView.builder(
+        controller: _scrollController,
+        itemCount: _numberList.length,
+        itemBuilder: (BuildContext context, int index) {
+          return FadeInImage(
+              placeholder: AssetImage('assets/jar-loading.gif'),
+              image: NetworkImage(
+                  'https://picsum.photos/500/300/?image=${_numberList[index]}'));
+        },
+      ),
     );
+  }
+
+  Future _getPage1() async {
+    final duration = new Duration(seconds: 2);
+    new Timer(duration, () {
+      _numberList.clear();
+      _ultimoItem++;
+      _addImages(10);
+    });
+
+    return Future.delayed(duration);
   }
 
   void _addImages(int count) {
@@ -55,5 +80,43 @@ class _ListPageState extends State<ListPage> {
       _numberList.add(_ultimoItem);
     }
     setState(() {});
+  }
+
+  Future<Timer> _fetchData() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    final duration = new Duration(seconds: 2);
+    return Timer(duration, _responseHTTP);
+  }
+
+  void _responseHTTP() {
+    _isLoading = false;
+    _scrollController.animateTo(_scrollController.position.pixels + 100,
+        duration: Duration(milliseconds: 250), curve: Curves.fastOutSlowIn);
+    _addImages(10);
+  }
+
+  Widget createLoading() {
+    if (_isLoading) {
+      return Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+            ],
+          ),
+          SizedBox(
+            height: 15.0,
+          )
+        ],
+      );
+    } else {
+      return Container();
+    }
   }
 }
