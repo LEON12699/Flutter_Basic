@@ -21,13 +21,13 @@ class HomePage extends StatelessWidget {
       initialData: [],
       builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
         return ListView(
-          children: _listaItems(snapshot.data!, context),
+          children: _listItems(snapshot.data!, context),
         );
       },
     );
   }
 
-  List<Widget> _listaItems(List<dynamic> data, BuildContext context) {
+  List<Widget> _listItems(List<dynamic> data, BuildContext context) {
     final List<Widget> options = [];
 
     if (data == null) {

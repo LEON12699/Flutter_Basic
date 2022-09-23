@@ -8,10 +8,10 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  String _nombre = '';
+  String _name = '';
   String _email = '';
   String _passsword = '';
-  String _fecha = '';
+  String _date = '';
   String _powerSelected = 'Volar';
 
   List powers = ['Volar', 'Rayos X', 'Super Aliento', 'Super Fuerza'];
@@ -29,15 +29,15 @@ class _InputPageState extends State<InputPage> {
           children: <Widget>[
             _crearInput(),
             const Divider(),
-            _crearEmail(),
+            _createEmail(),
             const Divider(),
-            _crearPassword(),
+            _createPassword(),
             const Divider(),
-            _crearFechas(context),
+            _createDate(context),
             const Divider(),
-            _crearDropwdown(),
+            _createDropdown(),
             const Divider(),
-            _crearPersona(),
+            _createPerson(),
           ],
         ));
   }
@@ -49,7 +49,7 @@ class _InputPageState extends State<InputPage> {
         decoration: InputDecoration(
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
-            counter: Text('Letras ${_nombre.length}'),
+            counter: Text('Letras ${_name.length}'),
             hintText: 'Nombre de la persona',
             labelText: 'Nombre',
             helperText: 'Solo es el nombre',
@@ -57,21 +57,21 @@ class _InputPageState extends State<InputPage> {
             icon: const Icon(Icons.account_circle)),
         onChanged: (valor) {
           setState(() {
-            _nombre = valor;
-            print('nombre: $_nombre');
+            _name = valor;
+            print('nombre: $_name');
           });
         });
   }
 
-  Widget _crearPersona() {
+  Widget _createPerson() {
     return ListTile(
-      title: Text('nombre es $_nombre'),
+      title: Text('nombre es $_name'),
       subtitle: Text('email es $_email'),
       trailing: Text('$_powerSelected'),
     );
   }
 
-  Widget _crearEmail() {
+  Widget _createEmail() {
     return TextField(
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
@@ -87,7 +87,7 @@ class _InputPageState extends State<InputPage> {
             }));
   }
 
-  Widget _crearPassword() {
+  Widget _createPassword() {
     return TextField(
         obscureText: true,
         decoration: InputDecoration(
@@ -103,7 +103,7 @@ class _InputPageState extends State<InputPage> {
             }));
   }
 
-  Widget _crearFechas(context) {
+  Widget _createDate(context) {
     return TextField(
         controller: _inputFieldDate,
         enableInteractiveSelection: false,
@@ -130,8 +130,8 @@ class _InputPageState extends State<InputPage> {
 
     if (picked != null) {
       setState(() {
-        _fecha = picked.toString();
-        _inputFieldDate.text = _fecha;
+        _date = picked.toString();
+        _inputFieldDate.text = _date;
         print(picked);
       });
     }
@@ -150,7 +150,7 @@ class _InputPageState extends State<InputPage> {
     return lista;
   }
 
-  Widget _crearDropwdown() {
+  Widget _createDropdown() {
     return Row(
       children: [
         Icon(Icons.select_all),

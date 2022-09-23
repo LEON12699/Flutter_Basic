@@ -9,7 +9,7 @@ class AlertPage extends StatelessWidget {
       appBar: AppBar(title: const Text('Alert Page')),
       body: Center(
         child: ElevatedButton(
-            onPressed: () => _mostrarAlert(context),
+            onPressed: () => _showAlert(context),
             child: const Text('Mostrar Alerta'),
             style: ElevatedButton.styleFrom(
                 primary: Colors.red, shape: StadiumBorder())),
@@ -22,7 +22,7 @@ class AlertPage extends StatelessWidget {
     );
   }
 
-  _mostrarAlert(BuildContext context) {
+  _showAlert(BuildContext context) {
     showDialog(
         context: context,
         barrierDismissible: true,
