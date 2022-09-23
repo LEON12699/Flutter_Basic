@@ -9,6 +9,7 @@ class SliderPage extends StatefulWidget {
 
 class _SliderPageState extends State<SliderPage> {
   double _slideValue = 100.0;
+  bool _blockCheck = false;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +22,7 @@ class _SliderPageState extends State<SliderPage> {
           child: Column(
             children: [
               _createSlider(),
+              _creteCheckbox(),
               Expanded(
                 child: _createImage(),
               )
@@ -37,11 +39,13 @@ class _SliderPageState extends State<SliderPage> {
       value: _slideValue,
       min: 10.0,
       max: 400.0,
-      onChanged: (value) {
-        setState(() {
-          _slideValue = value;
-        });
-      },
+      onChanged: (_blockCheck)
+          ? null
+          : (value) {
+              setState(() {
+                _slideValue = value;
+              });
+            },
     );
   }
 
@@ -51,5 +55,25 @@ class _SliderPageState extends State<SliderPage> {
             'https://javadesde0.com/wp-content/uploads/typescript-1280x720.jpg'),
         width: _slideValue,
         fit: BoxFit.contain);
+  }
+
+  Widget _creteCheckbox() {
+    /* return Checkbox(
+      value: _blockCheck,
+
+      onChanged: (value) {
+        setState(() {
+          _blockCheck = value!;
+        });
+      },
+    ); */
+    return CheckboxListTile(
+        title: Text('bloquea slider'),
+        value: _blockCheck,
+        onChanged: (value) {
+          setState(() {
+            _blockCheck = value!;
+          });
+        });
   }
 }
