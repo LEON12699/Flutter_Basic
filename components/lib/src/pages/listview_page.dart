@@ -21,20 +21,32 @@ class _ListPageState extends State<ListPage> {
     super.initState();
     _addImages(10);
 
-    _scrollController.addListener(() {});
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent - 20.0) {
+        // _addImages(10);
+        _fetchData();
+      }
+    });
+    /* if (_scrollController.hasClients) {
+      print(_scrollController.position.pixels);
+      print(_scrollController.position.maxScrollExtent);
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent - 100.0) {
+        //_addImages(10);
 
-    if (_scrollController.position.pixels ==
-        _scrollController.position.maxScrollExtent - 10.0) {
-      //_addImages(10);
-      _fetchData();
-    }
+        _fetchData();
+      }
+    } */
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    _scrollController.dispose();
+    if (_scrollController.hasClients) {
+      _scrollController.dispose();
+    }
   }
 
   @override
@@ -93,8 +105,10 @@ class _ListPageState extends State<ListPage> {
 
   void _responseHTTP() {
     _isLoading = false;
-    _scrollController.animateTo(_scrollController.position.pixels + 100,
-        duration: Duration(milliseconds: 250), curve: Curves.fastOutSlowIn);
+    if (_scrollController.hasClients) {
+      _scrollController.animateTo(_scrollController.position.pixels + 100,
+          duration: Duration(milliseconds: 250), curve: Curves.fastOutSlowIn);
+    }
     _addImages(10);
   }
 
